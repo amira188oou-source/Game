@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Energy Boost</title>
+  <meta charset="UTF-8" />
+  <title>Boost Energy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
-<link rel="stylesheet" hrcef="../assets/styles.css">
+  <!-- SAME CSS AS MAIN APP -->
+  <link rel="stylesheet" href="../assets/styles.css">
 
+  <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
 </head>
+
 <body>
-<div class="app">
+  <div id="app">
+    <header>
+      <h1>⚡ Boost Energy</h1>
+      <div id="progress">Quick reset</div>
+    </header>
 
-  <h2>How is your energy right now?</h2>
+    <div id="text">How is your energy right now?</div>
+    <div id="subtext" class="muted"></div>
 
-  <div id="choices">
-    <button data-level="veryLow">Very Low</button>
-    <button data-level="low">Low</button>
-    <button data-level="good">Good</button>
+    <div class="buttons" id="choices">
+      <button data-level="veryLow">Very Low</button>
+      <button data-level="low">Low</button>
+      <button data-level="good">Good</button>
+      <button data-level="veryGood">Very Good</button>
+    </div>
+
+    <div id="anim"></div>
+
+    <div class="buttons">
+      <button id="next" style="display:none">Next</button>
+    </div>
   </div>
 
-  <div id="anim"></div>
-  <div class="step" id="text"></div>
-  <button id="next" style="display:none">Next</button>
-
-</div>
-
-<script src="energy.js"></script>
+  <script src="energy.js"></script>
 </body>
 </html>
