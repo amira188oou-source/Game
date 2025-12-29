@@ -77,14 +77,13 @@ function nextStep() {
 function finish() {
   if (anim) anim.destroy();
 
-  textEl.textContent = "Done. Now go back and continue 💪";
+  textEl.textContent = "Done. Going back…";
   nextBtn.style.display = "none";
 
-  // Save result (you can improve this later)
-  localStorage.setItem("energyBoostDone", "1");
+  console.log("Energy boost finished, redirecting…");
 
-  // Small delay for UX
-  setTimeout(() => {
-    window.location.href = "../index.html";
-  }, 1200);
+  // ✅ BULLETPROOF redirect to app root
+  window.location.href = location.origin + "/index.html";
 }
+
+
