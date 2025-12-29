@@ -1,4 +1,8 @@
 // Main flow main.js
+function openEnergyBoost() {
+    window.location.href = "energy.html";
+}
+
 function next() {
     if (mainFlowLocked) return;
     mainFlowLocked = true;
@@ -290,11 +294,22 @@ function next() {
     } else {
         // First time: show profile → setup → flow
         askProfile(() => {
-            showSetup(() => {
-                if (stepIndex <= 0) stepIndex = 0;
-                next();
-            });
+        showSetup(() => {
+
+        // ===== STEP 0 (First page) =====
+        render({
+            text: "🌅 Welcome",
+            subtext: "Start your day or boost your energy",
+            buttons: [
+                { label: "▶ Start Day", action: next },
+                { label: "⚡ Energy Boost", action: openEnergyBoost }
+            ]
         });
+
+        // stepIndex stays 0 until Start Day
+    });
+});
+
     }
 })();
 
