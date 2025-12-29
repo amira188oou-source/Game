@@ -311,11 +311,24 @@ function next() {
     } else {
         // First time: show profile → setup → flow
         askProfile(() => {
-            showSetup(() => {
-                if (stepIndex <= 0) stepIndex = 0;
-                next();
-            });
-        });
+    showSetup(() => {
+
+        // ===== ADD Energy Boost button on FIRST PAGE =====
+        setTimeout(() => {
+            const buttonsEl = document.getElementById("buttons");
+            if (buttonsEl && !buttonsEl.querySelector(".energy-boost-btn")) {
+                const boostBtn = button("⚡ Energy Boost", openEnergyBoost);
+                boostBtn.classList.add("energy-boost-btn");
+                buttonsEl.prepend(boostBtn);
+            }
+        }, 0);
+        // ===== END ADD =====
+
+        if (stepIndex <= 0) stepIndex = 0;
+        next();
+    });
+});
+
     }
 })();
 
