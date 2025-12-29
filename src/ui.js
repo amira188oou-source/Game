@@ -156,13 +156,18 @@ function createBoostEnergyButton() {
   btn.id = "boost-btn";
   btn.innerText = "⚡ Boost Energy";
 
-  btn.onclick = () => {
-    // mark that we want to restart at step 0
-    localStorage.setItem("forceStep0", "1");
+  // ✅ WRITE THE STYLES HERE (RIGHT AFTER creating the button)
+  btn.style.position = "fixed";
+  btn.style.left = "50%";
+  btn.style.transform = "translateX(-50%)";
+  btn.style.bottom = "64px"; // above Restart Day
+  btn.style.zIndex = "2147483647";
 
-    // go to energy boost flow
+  btn.onclick = () => {
+    localStorage.setItem("forceStep0", "1");
     window.location.href = "src/energy.html";
   };
 
   document.body.appendChild(btn);
 }
+
