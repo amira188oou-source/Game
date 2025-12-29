@@ -53,7 +53,12 @@ function askProfile(onDone) {
     </div>
   `;
     c.appendChild(row);
-
+    // Boost Energy button
+    document.getElementById("buttons").appendChild(
+        button("⚡ Boost Energy", () => {
+        alert("Energy boost coming soon 🚀");
+        }, "secondary")
+    );
     document.getElementById("buttons").appendChild(
         button("Continue", () => {
             const name = (document.getElementById("name").value || "").trim();
@@ -87,9 +92,6 @@ function askProfile(onDone) {
             onDone && onDone();
         })
     );
-}
-function openEnergyBoost() {
-    window.location.href = "energy.html";
 }
 
 function showSetup(onDone) {
@@ -158,37 +160,29 @@ function showSetup(onDone) {
     renderSubjectsEditor(c);
 
     // --- Save button ---
-    const buttonsEl = document.getElementById("buttons");
+    document.getElementById("buttons").appendChild(
+        button("Save & Continue", () => {
+            const fastingVal = document.getElementById("cfg-fasting").value === "true";
+            appConfig.fasting = !!fastingVal;
+            appConfig.iftarTime = (document.getElementById("cfg-iftar").value || appConfig.iftarTime).trim();
+            appConfig.suhoorTime = (document.getElementById("cfg-suhoor").value || appConfig.suhoorTime).trim();
 
-// ⚡ Energy Boost button
-buttonsEl.appendChild(
-    button("⚡ Energy Boost", openEnergyBoost, "secondary")
-);
+            // Save meals (only if not fasting)
+            if (!appConfig.fasting) {
+                const newMeals = [];
+                Array.from(mealsList.children).forEach(row => {
+                    const label = (row.querySelector('input[data-k="label"]').value || "").trim();
+                    const time = (row.querySelector('input[data-k="time"]').value || "").trim();
+                    const macro = (row.querySelector('input[data-k="macro"]').value || "").trim();
+                    if (label && time) newMeals.push({ label, time, macro });
+                });
+                if (newMeals.length) appConfig.meals = newMeals;
+            }
 
-// Save & Continue (باقي كيف ما هو)
-buttonsEl.appendChild(
-    button("Save & Continue", () => {
-        const fastingVal = document.getElementById("cfg-fasting").value === "true";
-        appConfig.fasting = !!fastingVal;
-        appConfig.iftarTime = (document.getElementById("cfg-iftar").value || appConfig.iftarTime).trim();
-        appConfig.suhoorTime = (document.getElementById("cfg-suhoor").value || appConfig.suhoorTime).trim();
-
-        if (!appConfig.fasting) {
-            const newMeals = [];
-            Array.from(mealsList.children).forEach(row => {
-                const label = (row.querySelector('input[data-k="label"]').value || "").trim();
-                const time = (row.querySelector('input[data-k="time"]').value || "").trim();
-                const macro = (row.querySelector('input[data-k="macro"]').value || "").trim();
-                if (label && time) newMeals.push({ label, time, macro });
-            });
-            if (newMeals.length) appConfig.meals = newMeals;
-        }
-
-        collectAndSaveSubjects();
-        onDone && onDone();
-    })
-);
-
+            collectAndSaveSubjects();
+            onDone && onDone();
+        })
+    );
 }
 
 function renderSubjectsEditor(container) {
