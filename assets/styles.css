@@ -547,3 +547,23 @@ select option {
     background: var(--bg);
     color: var(--text);
 }
+/* ⚡ Boost Energy button (global, like Restart Day) */
+/* Global action buttons */
+#restart-btn,
+#boost-btn {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+/* Restart Day (bottom-most) */
+#restart-btn {
+  bottom: 16px;
+}
+
+/* Boost Energy (above Restart Day) */
+#boost-btn {
+  bottom: 64px;
+}
+
