@@ -32,12 +32,15 @@ function next() {
             }
 
          // ✅ ADD Energy Boost button (no logic changed)
-            const buttonsEl = document.getElementById("buttons");
-            if (buttonsEl) {
-            buttonsEl.prepend(
-               button("⚡ Energy Boost", openEnergyBoost)
-             );
-    }
+            setTimeout(() => {
+              const buttonsEl = document.getElementById("buttons");
+              if (buttonsEl && !buttonsEl.querySelector(".energy-boost-btn")) {
+              const boostBtn = button("⚡ Energy Boost", openEnergyBoost);
+              boostBtn.classList.add("energy-boost-btn");
+              buttonsEl.prepend(boostBtn);
+            }
+}, 0);
+
 
     break;
 }
@@ -324,6 +327,36 @@ function renderCurrentStep() {
 
         // Morning / Ground
         case 1: {
+    const her = dayMeta.userProfile?.name ? `, ${dayMeta.userProfile.name}` : "";
+
+    if (appConfig.fasting) {
+        render({
+            text: `🧘‍♀️ Grounding${her}`,
+            subtext: `<span class="pill">2 minutes</span>`
+        });
+        startTimer(2, next);
+    } else {
+        render({
+            text: `💧 Drink water${her}`,
+            subtext: `<span class="pill">2 minutes</span>`
+        });
+        startTimer(2, next);
+    }
+
+    // ✅ ADD Energy Boost button
+   setTimeout(() => {
+    const buttonsEl = document.getElementById("buttons");
+    if (buttonsEl && !buttonsEl.querySelector(".energy-boost-btn")) {
+        const boostBtn = button("⚡ Energy Boost", openEnergyBoost);
+        boostBtn.classList.add("energy-boost-btn");
+        buttonsEl.prepend(boostBtn);
+    }
+}, 0);
+
+
+    break;
+}
+case 1: {
     const her = dayMeta.userProfile?.name ? `, ${dayMeta.userProfile.name}` : "";
 
     if (appConfig.fasting) {
