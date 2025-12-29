@@ -56,7 +56,8 @@ function askProfile(onDone) {
     // Boost Energy button
     document.getElementById("buttons").appendChild(
         button("⚡ Boost Energy", () => {
-        alert("Energy boost coming soon 🚀");
+        // Go to Energy Boost page
+        window.location.href = "src/energy.html";
         }, "secondary")
     );
     document.getElementById("buttons").appendChild(
