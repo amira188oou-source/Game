@@ -1,4 +1,9 @@
 // Main flow main.js
+// ===== Energy Boost Page Navigation =====
+function openEnergyBoost() {
+    // later we will create energy.html
+    window.location.href = "energy.html";
+}
 function next() {
     if (mainFlowLocked) return;
     mainFlowLocked = true;
@@ -123,14 +128,15 @@ function next() {
 
          // Mini break (case 12) — now uses mood-based duration + activity
         case 13:
-            const breakDur = getBreakDurationByMood();
-            const breakActivity = pickActivityByMood("break") || randomEnergy();
-            render({ 
-                text: breakActivity, 
-                subtext: `<span class="pill">${breakDur} minutes</span>`,
-                buttons: [{ label: "Start", action: () => startTimer(breakDur, next) }, { label: "Skip", variant: "secondary", action: next }]
-            });
-            break;
+            render({
+                 text: "🧩 Break time",
+                 subtext: "Do you want to reset your energy?",
+                 buttons: [
+                 { label: "⚡ Energy Boost", action: openEnergyBoost },
+                 { label: "Skip", variant: "secondary", action: next }
+        ]
+    });
+    break;
 
         // Lunch
         case 14:
@@ -296,6 +302,18 @@ function next() {
             });
         });
     }
+    // ===== Energy Boost Result (read when returning) =====
+const energyBoostResult = localStorage.getItem("energyBoostResult");
+
+if (energyBoostResult) {
+    console.log("Energy Boost result:", energyBoostResult);
+
+    // store it (optional, for later logic)
+    dayMeta.energyBoost = energyBoostResult;
+
+    // VERY IMPORTANT: clear it
+    localStorage.removeItem("energyBoostResult");
+}
 })();
 
 function renderCurrentStep() {
