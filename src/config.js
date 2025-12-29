@@ -102,4 +102,3 @@ let appConfig = {
     },
     baseSubjectsEditable: JSON.parse(JSON.stringify(baseFocusSubjects))
 };
-

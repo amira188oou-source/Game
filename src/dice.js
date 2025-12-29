@@ -27,18 +27,29 @@ function buildSessionsFromDice() {
     const perc = allocatePercents(all);
     sessions = []; sessionIdCounter = 1;
     dayMeta.dice = {};
+    
+    // Get mood boost multiplier
+    const moodBoost = dayMeta.mood ? MOOD_THEMES[dayMeta.mood].activityBoost : 1.0;
+    
     for (let i = 0; i < all.length; i++) {
         const p = perc[i];
         dayMeta.dice[all[i].name] = p;
-        const totalMins = Math.round(dayMeta.focusHours * 60 * p / 100);
+        const totalMins = Math.round(dayMeta.focusHours * 60 * p / 100 * moodBoost);
         const chunks = clampSessionMinutes(totalMins);
         chunks.forEach(m => sessions.push({ id: sessionIdCounter++, name: all[i].name, checklist: all[i].checklist, minutes: m }));
+    }
+    // Shuffle sessions randomly so order is not predictable
+    for (let i = sessions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [sessions[i], sessions[j]] = [sessions[j], sessions[i]];
     }
 }
 function distributeWaves() {
     waves = { morning: [], afternoon: [], night: [] };
     const ifFasting = appConfig.fasting;
-    const bias = ifFasting ? [0, 1, 0, 1, 0, 1, 0, 1, 2, 0, 1, 2] : [0, 1, 2, 0, 1, 2, 0, 1, 2];
+    // When fasting, bias more slots toward morning (0) and limit long night sessions
+    const bias = ifFasting ? [0, 0, 1, 0, 0, 1, 0, 0, 2, 0, 1, 0] // more morning slots
+        : [0, 1, 2, 0, 1, 2, 0, 1, 2];
     sessions.forEach((s, idx) => {
         const slot = bias[idx % bias.length];
         if (slot === 0) waves.morning.push(s);

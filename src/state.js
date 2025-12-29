@@ -9,7 +9,8 @@ let dayMeta = {
     userProfile: {},
     focusHours: 4,
     customSubjects: [],
-    dice: null
+    dice: null,
+    mood: null 
 };
 
 let currentAffirmationIx = 0;
@@ -35,7 +36,7 @@ let mealStatus = []; // [{label, time, done}]
 function todayKey() { return new Date().toISOString().slice(0, 10); }
 
 function loadMealStatus() {
-    const key = mealStatus - `${todayKey()}`;
+    const key = `mealStatus_${todayKey()}`; // FIX: was "mealStatus - ${todayKey()}"
     const raw = localStorage.getItem(key);
     if (raw) {
         try { mealStatus = JSON.parse(raw) || []; } catch (e) { mealStatus = []; }
@@ -46,11 +47,57 @@ function loadMealStatus() {
         saveMealStatus();
     }
 }
+
 function saveMealStatus() {
-    const key = mealStatus - `${todayKey()}`;
+    const key = `mealStatus_${todayKey()}`; // FIX: was "mealStatus - ${todayKey()}"
     localStorage.setItem(key, JSON.stringify(mealStatus));
 }
+
 function resetMealStatusForToday() {
     mealStatus = appConfig.meals.map(m => ({ label: m.label, time: m.time, done: false }));
     saveMealStatus();
 }
+
+function todayKey() { return new Date().toISOString().slice(0, 10); }
+
+// State persistence (per-day)
+function stateStorageKey() {
+    return `dbr_state_${todayKey()}`;
+}
+
+function saveAppState() {
+    try {
+        const payload = {
+            stepIndex,
+            dayMeta,
+            sessions,
+            waves,
+            runningQueue,
+            runningIndex,
+            activeSession,
+            sessionLogs,
+            mealStatus,
+            // timer snapshot (not exact running tick)
+            timerRemaining,
+            timerPaused
+        };
+        localStorage.setItem(stateStorageKey(), JSON.stringify(payload));
+    } catch (e) { console.warn("saveAppState failed", e); }
+}
+
+function loadAppState() {
+    try {
+        const raw = localStorage.getItem(stateStorageKey());
+        if (!raw) return null;
+        return JSON.parse(raw);
+    } catch (e) { return null; }
+}
+
+function clearSavedState() {
+    try { localStorage.removeItem(stateStorageKey()); } catch(e){}
+}
+
+// autosave on unload
+window.addEventListener("beforeunload", () => {
+    saveAppState();
+});

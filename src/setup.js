@@ -2,17 +2,17 @@
 // Profile and Setup screens setup.js
 // ===============================
 
-function askProfile(onDone){
-  render({
-    text: "👋 Welcome! Let’s personalize your day.",
-    subtext: "These details help adjust timings and suggestions."
-  });
+function askProfile(onDone) {
+    render({
+        text: "👋 Welcome! Let’s personalize your day.",
+        subtext: "These details help adjust timings and suggestions."
+    });
 
-  const c = document.getElementById("checklist");
-  const row = document.createElement("div");
-  row.className = "grid2";
+    const c = document.getElementById("checklist");
+    const row = document.createElement("div");
+    row.className = "grid2";
 
-  row.innerHTML = `
+    row.innerHTML = `
     <div class="field">
       <label>Your name (optional)</label>
       <input type="text" id="name">
@@ -33,162 +33,187 @@ function askProfile(onDone){
       <input type="text" id="priority" placeholder="e.g., Portfolio, Job search, DSA">
     </div>
   `;
-  c.appendChild(row);
+    c.appendChild(row);
 
-  document.getElementById("buttons").appendChild(
-    button("Continue", () => {
-      const name = (document.getElementById("name").value || "").trim();
-      const energy = Number(document.getElementById("energy").value || 6);
-      const fh = Number(document.getElementById("focusHours").value || 4);
-      const priority = (document.getElementById("priority").value || "").trim();
+    document.getElementById("buttons").appendChild(
+        button("Continue", () => {
+            const name = (document.getElementById("name").value || "").trim();
+            const energy = Number(document.getElementById("energy").value || 6);
+            const fh = Number(document.getElementById("focusHours").value || 4);
+            const priority = (document.getElementById("priority").value || "").trim();
 
-      focusHours = Math.max(1, Math.min(10, fh));
-      dayMeta.userProfile = { name, energy, priority };
-      dayMeta.focusHours = focusHours;
+            focusHours = Math.max(1, Math.min(10, fh));
+            dayMeta.userProfile = { name, energy, priority };
+            dayMeta.focusHours = focusHours;
 
-      addNote({
-        type: "profile",
-        title: "Profile",
-        content: dayMeta.userProfile
-      });
+            addNote({
+                type: "profile",
+                title: "Profile",
+                content: dayMeta.userProfile
+            });
 
-      onDone && onDone();
-    })
-  );
+            onDone && onDone();
+        })
+    );
 }
 
-function showSetup(onDone){
-  render({
-    text: "⚙️ Setup",
-    subtext: "Adjust focus subjects, fasting, meals and categories"
-  });
-
-  const wrap = document.getElementById("checklist");
-
-  // ---------- Fasting ----------
-  const fastingDiv = document.createElement("div");
-  fastingDiv.className = "grid2";
-  fastingDiv.innerHTML = `
-    <div class="field">
-      <label>Fasting today (Ramadan / voluntary)</label>
-      <select id="cfg-fasting">
-        <option value="false"${appConfig.fasting ? "" : " selected"}>No</option>
-        <option value="true"${appConfig.fasting ? " selected" : ""}>Yes</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>Iftar time (HH:MM)</label>
-      <input type="text" id="cfg-iftar" value="${appConfig.iftarTime}">
-    </div>
-
-    <div class="field">
-      <label>Suhoor time (HH:MM)</label>
-      <input type="text" id="cfg-suhoor" value="${appConfig.suhoorTime}">
-    </div>
-  `;
-  wrap.appendChild(fastingDiv);
-
-  // ---------- Meals ----------
-  const mealsDiv = document.createElement("div");
-  mealsDiv.className = "field";
-  mealsDiv.innerHTML = `<label>Meals (time + composition)</label>`;
-  const mealsList = document.createElement("div");
-
-  function renderMeals(){
-    mealsList.innerHTML = "";
-    appConfig.meals.forEach((m, i) => {
-      const row = document.createElement("div");
-      row.className = "row";
-      row.innerHTML = `
-        <input type="text" value="${m.label}" data-k="label">
-        <input type="text" value="${m.time}" data-k="time" style="max-width:120px">
-        <input type="text" value="${m.macro}" data-k="macro" style="flex:1">
-      `;
-      row.appendChild(
-        button("Remove", () => {
-          appConfig.meals.splice(i, 1);
-          renderMeals();
-        }, "ghost")
-      );
-      mealsList.appendChild(row);
+function showSetup(onDone) {
+    clearUI();
+    render({
+        text: "⚙️ Setup your day",
+        subtext: "Configure fasting, meals, and main focus subjects."
     });
-  }
-  renderMeals();
 
-  const addMealRow = document.createElement("div");
-  addMealRow.className = "row";
-  addMealRow.innerHTML = `
-    <input type="text" id="meal-label" placeholder="Label (e.g., Lunch)">
-    <input type="text" id="meal-time" placeholder="HH:MM" style="max-width:120px">
-    <input type="text" id="meal-macro" placeholder="Macros / composition" style="flex:1">
-  `;
+    const c = document.getElementById("checklist");
 
-  const addMealBtn = button("Add Meal", () => {
-    const label = document.getElementById("meal-label").value.trim();
-    const time = document.getElementById("meal-time").value.trim();
-    const macro = document.getElementById("meal-macro").value.trim();
-    if (!label || !time) return;
-    appConfig.meals.push({ label, time, macro });
-    document.getElementById("meal-label").value = "";
-    document.getElementById("meal-time").value = "";
-    document.getElementById("meal-macro").value = "";
-    renderMeals();
-  }, "secondary");
+    // --- Fasting toggle ---
+    const f1 = document.createElement("div");
+    f1.className = "field";
+    f1.innerHTML = `
+        <label>Fasting today?</label>
+        <select id="cfg-fasting" onchange="document.getElementById('meals-section').style.display = this.value === 'false' ? 'block' : 'none';">
+            <option value="false"${!appConfig.fasting?" selected":""}>No</option>
+            <option value="true"${appConfig.fasting?" selected":""}>Yes (Ramadan)</option>
+        </select>
+    `;
+    c.appendChild(f1);
 
-  mealsDiv.append(mealsList, addMealRow, addMealBtn);
-  wrap.appendChild(mealsDiv);
+    // --- Iftar/Suhoor times (only show if fasting) ---
+    const f2 = document.createElement("div");
+    f2.className = "field";
+    f2.innerHTML = `
+        <label>Iftar time (HH:MM)</label>
+        <input type="text" id="cfg-iftar" value="${appConfig.iftarTime || "18:30"}" placeholder="18:30">
+    `;
+    c.appendChild(f2);
 
-  // ---------- Food challenges ----------
-  const chDiv = document.createElement("div");
-  chDiv.className = "field";
-  chDiv.innerHTML = `<label>Food challenges (daily)</label>`;
-  const chArea = document.createElement("textarea");
-  chArea.id = "cfg-challenges";
-  chArea.value = appConfig.foodChallenges.join("\n");
-  chDiv.appendChild(chArea);
-  wrap.appendChild(chDiv);
+    const f3 = document.createElement("div");
+    f3.className = "field";
+    f3.innerHTML = `
+        <label>Suhoor time (HH:MM)</label>
+        <input type="text" id="cfg-suhoor" value="${appConfig.suhoorTime || "05:30"}" placeholder="05:30">
+    `;
+    c.appendChild(f3);
 
-  // ---------- Subjects ----------
-  const subjDiv = document.createElement("div");
-  subjDiv.className = "field";
-  subjDiv.innerHTML = `<label>Focus subjects (edit / add)</label>`;
-  const subjList = document.createElement("div");
-  subjDiv.appendChild(subjList);
-
-  function renderSubjects(){
-    subjList.innerHTML = "";
-    appConfig.baseSubjectsEditable.forEach((s, idx) => {
-      const cat = appConfig.categories[s.name] || "focus";
-      const box = document.createElement("div");
-      box.className = "field";
-      box.innerHTML = `
-        <div class="row">
-          <input type="text" value="${s.name}" data-idx="${idx}" data-k="name" style="flex:1">
-          <select data-idx="${idx}" data-k="cat" style="max-width:160px">
-            <option value="focus"${cat==="focus"?" selected":""}>Focus</option>
-            <option value="learning"${cat==="learning"?" selected":""}>Learning</option>
-            <option value="faith"${cat==="faith"?" selected":""}>Faith</option>
-            <option value="health"${cat==="health"?" selected":""}>Health</option>
-          </select>
-        </div>
-        <div class="row">
-          <textarea data-idx="${idx}" data-k="tasks"
-            placeholder="Checklist, one per line">${s.checklist.join("\n")}</textarea>
-        </div>
-      `;
-      box.appendChild(
-        button("Remove", () => {
-          appConfig.baseSubjectsEditable.splice(idx, 1);
-          renderSubjects();
-        }, "ghost")
-      );
-      subjList.appendChild(box);
+    // --- Meals list (HIDDEN IF FASTING) ---
+    const f4 = document.createElement("div");
+    f4.className = "field";
+    f4.id = "meals-section";
+    f4.style.display = appConfig.fasting ? "none" : "block";
+    f4.innerHTML = `<label>Meals (time and macros)</label>`;
+    const mealsList = document.createElement("div");
+    mealsList.id = "meals-list";
+    mealsList.style = "display:flex;flex-direction:column;gap:6px;";
+    
+    (appConfig.meals || []).forEach(m => {
+        const row = document.createElement("div");
+        row.style = "display:flex;gap:6px;align-items:center;";
+        row.innerHTML = `
+            <input data-k="label" type="text" placeholder="Meal name" value="${m.label || ""}" style="flex:1;">
+            <input data-k="time" type="text" placeholder="HH:MM" value="${m.time || ""}" style="flex:0.5;">
+            <input data-k="macro" type="text" placeholder="Macro" value="${m.macro || ""}" style="flex:1;">
+        `;
+        mealsList.appendChild(row);
     });
-  }
-  renderSubjects();
+    
+    f4.appendChild(mealsList);
+    c.appendChild(f4);
 
-  document.getElementById("buttons").appendChild(
-    button("Save & Continue", () => onDone && onDone())
-  );
+    // --- Focus subjects editor ---
+    renderSubjectsEditor(c);
+
+    // --- Save button ---
+    document.getElementById("buttons").appendChild(
+        button("Save & Continue", () => {
+            const fastingVal = document.getElementById("cfg-fasting").value === "true";
+            appConfig.fasting = !!fastingVal;
+            appConfig.iftarTime = (document.getElementById("cfg-iftar").value || appConfig.iftarTime).trim();
+            appConfig.suhoorTime = (document.getElementById("cfg-suhoor").value || appConfig.suhoorTime).trim();
+
+            // Save meals (only if not fasting)
+            if (!appConfig.fasting) {
+                const newMeals = [];
+                Array.from(mealsList.children).forEach(row => {
+                    const label = (row.querySelector('input[data-k="label"]').value || "").trim();
+                    const time = (row.querySelector('input[data-k="time"]').value || "").trim();
+                    const macro = (row.querySelector('input[data-k="macro"]').value || "").trim();
+                    if (label && time) newMeals.push({ label, time, macro });
+                });
+                if (newMeals.length) appConfig.meals = newMeals;
+            }
+
+            collectAndSaveSubjects();
+            onDone && onDone();
+        })
+    );
 }
+
+function renderSubjectsEditor(container) {
+    const wrapper = document.createElement("div");
+    wrapper.id = "setup-subjects";
+    wrapper.className = "field";
+    wrapper.innerHTML = `<label>Main focus subjects (edit name, category and checklist — one item per line)</label>`;
+    const list = document.createElement("div");
+    list.id = "subjects-list";
+    list.style = "display:flex;flex-direction:column;gap:8px;";
+
+    const renderRow = (sub, idx) => {
+        const row = document.createElement("div");
+        row.className = "subject-row field";
+        row.dataset.idx = idx;
+        const catVal = (appConfig.categories && appConfig.categories[sub.name]) || "focus";
+        row.innerHTML = `
+            <input data-k="name" type="text" placeholder="Subject name" value="${(sub.name||"").replace(/"/g,'&quot;')}">
+            <select data-k="cat">
+                <option value="focus"${catVal==="focus"?" selected":""}>Focus</option>
+                <option value="learning"${catVal==="learning"?" selected":""}>Learning</option>
+                <option value="faith"${catVal==="faith"?" selected":""}>Faith</option>
+                <option value="health"${catVal==="health"?" selected":""}>Health</option>
+            </select>
+            <textarea data-k="tasks" placeholder="Checklist (one per line)">${(sub.checklist||[]).join("\n")}</textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;">
+              <button type="button" data-action="remove">Remove</button>
+            </div>
+        `;
+        row.querySelector('[data-action="remove"]').onclick = () => {
+            list.removeChild(row);
+        };
+        return row;
+    };
+
+    (appConfig.baseSubjectsEditable || []).forEach((s, i) => {
+        list.appendChild(renderRow(s, i));
+    });
+
+    const addBtn = document.createElement("button");
+    addBtn.type = "button";
+    addBtn.innerText = "+ Add subject";
+    addBtn.onclick = () => {
+        list.appendChild(renderRow({ name: "New subject", checklist: [] }, list.children.length));
+    };
+
+    wrapper.appendChild(list);
+    wrapper.appendChild(addBtn);
+    container.appendChild(wrapper);
+}
+
+function collectAndSaveSubjects() {
+    const list = document.getElementById("subjects-list");
+    if (!list) return;
+    const rows = Array.from(list.querySelectorAll(".subject-row"));
+    const newBase = [];
+    rows.forEach(r => {
+        const name = (r.querySelector('input[data-k="name"]').value || "").trim();
+        if (!name) return;
+        const cat = r.querySelector('select[data-k="cat"]').value || "focus";
+        const tasks = (r.querySelector('textarea[data-k="tasks"]').value || "")
+            .split("\n").map(s=>s.trim()).filter(Boolean);
+        newBase.push({ name, checklist: tasks });
+        appConfig.categories = appConfig.categories || {};
+        appConfig.categories[name] = cat;
+    });
+    if (newBase.length) {
+        appConfig.baseSubjectsEditable = JSON.parse(JSON.stringify(newBase));
+    }
+}
+
