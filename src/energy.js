@@ -40,14 +40,21 @@ choicesEl.querySelectorAll("button").forEach(btn => {
 });
 
 nextBtn.addEventListener("click", nextStep);
-
 function startRoutine(level) {
+  console.log("Energy level selected:", level);
+
+  // hide choices
   choicesEl.style.display = "none";
+
+  // show animation container
+  animEl.classList.add("active");
+
   nextBtn.style.display = "block";
   steps = routines[level] || [];
   index = 0;
   playStep();
 }
+
 
 function playStep() {
   if (!steps[index]) return;
@@ -55,6 +62,7 @@ function playStep() {
   if (anim) anim.destroy();
 
   textEl.textContent = steps[index].text;
+  document.getElementById("subtext").textContent = "";
 
   anim = lottie.loadAnimation({
     container: animEl,
@@ -64,6 +72,7 @@ function playStep() {
     path: steps[index].anim
   });
 }
+
 
 function nextStep() {
   index++;
