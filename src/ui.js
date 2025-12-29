@@ -155,14 +155,6 @@ function createBoostEnergyButton() {
   const btn = document.createElement("button");
   btn.id = "boost-btn";
   btn.innerText = "⚡ Boost Energy";
-
-  // ✅ WRITE THE STYLES HERE (RIGHT AFTER creating the button)
-  btn.style.position = "fixed";
-  btn.style.left = "50%";
-  btn.style.transform = "translateX(-50%)";
-  btn.style.bottom = "64px"; // above Restart Day
-  btn.style.zIndex = "2147483647";
-
   btn.onclick = () => {
     localStorage.setItem("forceStep0", "1");
     window.location.href = "src/energy.html";
