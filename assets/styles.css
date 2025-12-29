@@ -510,7 +510,7 @@ textarea {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: rgba(255, 68, 68, 0.9);
+    background: #ff4444e6;
     color: white;
     border: none;
     padding: 12px 16px;
@@ -550,29 +550,31 @@ select option {
 /* ⚡ Boost Energy button (global, like Restart Day) */
 /* Global action buttons */
 /* ⚡ Boost Energy (LEFT side – mirrored Restart Day) */
-#restart-btn {
+/* ⚡ Boost Energy — LEFT */
+#boost-btn {
     position: fixed;
     bottom: 20px;
-    right: 20px;                /* → RIGHT */
-    background: rgba(255, 68, 68, 0.9);
-    color: white;
+    left: 20px;                 /* ← LEFT side */
+    background: rgba(88, 211, 255, 0.9);
+    color: #001b2e;
     border: none;
     padding: 12px 16px;
     border-radius: 50px;
     font-size: 13px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
-    z-index: 9997;
+    box-shadow: 0 4px 12px rgba(88, 211, 255, 0.4);
+    z-index: 9998;
     transition: all 0.3s ease;
 }
 
-#restart-btn:hover {
-    background: rgb(68, 255, 249);
-    box-shadow: 0 6px 16px rgba(255, 68, 68, 0.6);
+#boost-btn:hover {
+    background: rgb(255, 68, 68);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(88, 211, 255, 0.6);
     transform: translateY(-2px);
 }
 
-#restart-btn:active {
+#boost-btn:active {
     transform: translateY(0);
 }
 
