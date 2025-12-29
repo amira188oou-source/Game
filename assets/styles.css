@@ -587,3 +587,17 @@ select option {
 }
 
 
+/* Boost Energy animation area */
+.energy-anim {
+    width: 100%;
+    height: 280px;
+    margin: 24px auto;
+    display: none;              /* hidden until a choice is clicked */
+    align-items: center;
+    justify-content: center;
+}
+
+/* When active */
+.energy-anim.active {
+    display: flex;
+}
