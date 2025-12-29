@@ -1,7 +1,4 @@
 // Main flow main.js
-function openEnergyBoost() {
-    window.location.href = "energy.html"; // or "src/energy.html"
-}
 function next() {
     if (mainFlowLocked) return;
     mainFlowLocked = true;
@@ -15,36 +12,18 @@ function next() {
 
         // Morning / Ground
         case 1: {
-             const her = dayMeta.userProfile?.name ? `, ${dayMeta.userProfile.name}` : "";
-
-             if (appConfig.fasting) {
-             render({
-                  text: `🧘‍♀️ Grounding${her}`,
-                  subtext: `<span class="pill">2 minutes</span>`
-                });
-             startTimer(2, next);
+            const her = dayMeta.userProfile?.name ? `, ${dayMeta.userProfile.name}` : "";
+            if (appConfig.fasting) {
+                // When fasting, avoid drink-water prompt — do a quick grounding instead
+                render({ text: `🧘‍♀️ Grounding${her}`, subtext: `<span class="pill">2 minutes</span>` });
+                startTimer(2, next);
             } else {
-            render({
-            text: `💧 Drink water${her}`,
-            subtext: `<span class="pill">2 minutes</span>`
-            });
-            startTimer(2, next);
+                render({ text: `💧 Drink water${her}`, subtext: `<span class="pill">2 minutes</span>` });
+                startTimer(2, next);
+
             }
-
-         // ✅ ADD Energy Boost button (no logic changed)
-            setTimeout(() => {
-              const buttonsEl = document.getElementById("buttons");
-              if (buttonsEl && !buttonsEl.querySelector(".energy-boost-btn")) {
-              const boostBtn = button("⚡ Energy Boost", openEnergyBoost);
-              boostBtn.classList.add("energy-boost-btn");
-              buttonsEl.prepend(boostBtn);
-            }
-}, 0);
-
-
-    break;
-}
-
+            break;
+        }
 
         case 2:
             render({ text: "🧘‍♀️ Sit silently", subtext: `<span class="pill">2 minutes</span>` });
@@ -311,24 +290,11 @@ function next() {
     } else {
         // First time: show profile → setup → flow
         askProfile(() => {
-    showSetup(() => {
-
-        // ===== ADD Energy Boost button on FIRST PAGE =====
-        setTimeout(() => {
-            const buttonsEl = document.getElementById("buttons");
-            if (buttonsEl && !buttonsEl.querySelector(".energy-boost-btn")) {
-                const boostBtn = button("⚡ Energy Boost", openEnergyBoost);
-                boostBtn.classList.add("energy-boost-btn");
-                buttonsEl.prepend(boostBtn);
-            }
-        }, 0);
-        // ===== END ADD =====
-
-        if (stepIndex <= 0) stepIndex = 0;
-        next();
-    });
-});
-
+            showSetup(() => {
+                if (stepIndex <= 0) stepIndex = 0;
+                next();
+            });
+        });
     }
 })();
 
@@ -340,63 +306,18 @@ function renderCurrentStep() {
 
         // Morning / Ground
         case 1: {
-    const her = dayMeta.userProfile?.name ? `, ${dayMeta.userProfile.name}` : "";
+            const her = dayMeta.userProfile?.name ? `, ${dayMeta.userProfile.name}` : "";
+            if (appConfig.fasting) {
+                // When fasting, avoid drink-water prompt — do a quick grounding instead
+                render({ text: `🧘‍♀️ Grounding${her}`, subtext: `<span class="pill">2 minutes</span>` });
+                startTimer(2, next);
+            } else {
+                render({ text: `💧 Drink water${her}`, subtext: `<span class="pill">2 minutes</span>` });
+                startTimer(2, next);
 
-    if (appConfig.fasting) {
-        render({
-            text: `🧘‍♀️ Grounding${her}`,
-            subtext: `<span class="pill">2 minutes</span>`
-        });
-        startTimer(2, next);
-    } else {
-        render({
-            text: `💧 Drink water${her}`,
-            subtext: `<span class="pill">2 minutes</span>`
-        });
-        startTimer(2, next);
-    }
-
-    // ✅ ADD Energy Boost button
-   setTimeout(() => {
-    const buttonsEl = document.getElementById("buttons");
-    if (buttonsEl && !buttonsEl.querySelector(".energy-boost-btn")) {
-        const boostBtn = button("⚡ Energy Boost", openEnergyBoost);
-        boostBtn.classList.add("energy-boost-btn");
-        buttonsEl.prepend(boostBtn);
-    }
-}, 0);
-
-
-    break;
-}
-case 1: {
-    const her = dayMeta.userProfile?.name ? `, ${dayMeta.userProfile.name}` : "";
-
-    if (appConfig.fasting) {
-        render({
-            text: `🧘‍♀️ Grounding${her}`,
-            subtext: `<span class="pill">2 minutes</span>`
-        });
-        startTimer(2, next);
-    } else {
-        render({
-            text: `💧 Drink water${her}`,
-            subtext: `<span class="pill">2 minutes</span>`
-        });
-        startTimer(2, next);
-    }
-
-    // ✅ ADD Energy Boost button
-    const buttonsEl = document.getElementById("buttons");
-    if (buttonsEl) {
-        buttonsEl.prepend(
-            button("⚡ Energy Boost", openEnergyBoost)
-        );
-    }
-
-    break;
-}
-
+            }
+            break;
+        }
 
         case 2:
             render({ text: "🧘‍♀️ Sit silently", subtext: `<span class="pill">2 minutes</span>` });
