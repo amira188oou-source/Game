@@ -260,6 +260,7 @@ function next() {
 
     // Create persistent restart button (visible on all pages)
     if (typeof createRestartButton === "function") createRestartButton();
+    if (typeof createBoostEnergyButton === "function") createBoostEnergyButton();
 
     // Restore last saved state for today (if any)
     const saved = (typeof loadAppState === "function") ? loadAppState() : null;
