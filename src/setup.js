@@ -56,9 +56,17 @@ function askProfile(onDone) {
     // Boost Energy button
     document.getElementById("buttons").appendChild(
     button("⚡ Boost Energy", () => {
+        // Remember we want to come back to step 0
+        localStorage.setItem("returnStep", "0");
+
+        // Optional: mark source
+        localStorage.setItem("fromEnergyBoost", "1");
+
+        // Go to energy page
         window.location.href = "src/energy.html";
     }, "secondary")
 );
+
 
     document.getElementById("buttons").appendChild(
         button("Continue", () => {
