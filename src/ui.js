@@ -149,3 +149,20 @@ function createRestartButton() {
     };
     document.body.appendChild(btn);
 }
+function createBoostEnergyButton() {
+  if (document.getElementById("boost-btn")) return;
+
+  const btn = document.createElement("button");
+  btn.id = "boost-btn";
+  btn.innerText = "⚡ Boost Energy";
+
+  btn.onclick = () => {
+    // mark that we want to restart at step 0
+    localStorage.setItem("forceStep0", "1");
+
+    // go to energy boost flow
+    window.location.href = "src/energy.html";
+  };
+
+  document.body.appendChild(btn);
+}
