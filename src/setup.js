@@ -55,11 +55,11 @@ function askProfile(onDone) {
     c.appendChild(row);
     // Boost Energy button
     document.getElementById("buttons").appendChild(
-        button("⚡ Boost Energy", () => {
-        // Go to Energy Boost page
+    button("⚡ Boost Energy", () => {
         window.location.href = "src/energy.html";
-        }, "secondary")
-    );
+    }, "secondary")
+);
+
     document.getElementById("buttons").appendChild(
         button("Continue", () => {
             const name = (document.getElementById("name").value || "").trim();
