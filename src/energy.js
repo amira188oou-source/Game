@@ -80,10 +80,11 @@ function finish() {
   textEl.textContent = "Done. Going back…";
   nextBtn.style.display = "none";
 
-  console.log("Energy boost finished, redirecting…");
+  console.log("Energy boost finished, going back");
 
-  // ✅ BULLETPROOF redirect to app root
-  window.location.href = location.origin + "/index.html";
+  // ✅ GUARANTEED to work
+  window.history.back();
 }
+
 
 
