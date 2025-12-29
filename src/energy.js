@@ -76,9 +76,15 @@ function nextStep() {
 
 function finish() {
   if (anim) anim.destroy();
-  textEl.textContent = "Done. Now go work 💪";
+
+  textEl.textContent = "Done. Now go back and continue 💪";
   nextBtn.style.display = "none";
 
-  // 🔜 later: send result back to main app
-  // localStorage.setItem("energyBoostResult", "done");
+  // Save result (you can improve this later)
+  localStorage.setItem("energyBoostDone", "1");
+
+  // Small delay for UX
+  setTimeout(() => {
+    window.location.href = "../index.html";
+  }, 1200);
 }
