@@ -549,21 +549,32 @@ select option {
 }
 /* ⚡ Boost Energy button (global, like Restart Day) */
 /* Global action buttons */
-#restart-btn,
+/* ⚡ Boost Energy (LEFT side – mirrored Restart Day) */
 #boost-btn {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;              /* ← opposite side */
+    background: rgba(68, 255, 249, 0.9);
+    color: #000;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(68, 255, 249, 0.4);
+    z-index: 9997;
+    transition: all 0.3s ease;
 }
 
-/* Restart Day (bottom-most) */
-#restart-btn {
-  bottom: 16px;
+#boost-btn:hover {
+    background: rgb(255, 68, 68);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(68, 255, 249, 0.6);
+    transform: translateY(-2px);
 }
 
-/* Boost Energy (above Restart Day) */
-#boost-btn {
-  bottom: 64px;
+#boost-btn:active {
+    transform: translateY(0);
 }
+
 
