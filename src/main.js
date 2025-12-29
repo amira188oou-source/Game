@@ -296,19 +296,23 @@ function next() {
         askProfile(() => {
         showSetup(() => {
 
-        // ===== STEP 0 (First page) =====
-        render({
-            text: "🌅 Welcome",
-            subtext: "Start your day or boost your energy",
-            buttons: [
-                { label: "▶ Start Day", action: next },
-                { label: "⚡ Energy Boost", action: openEnergyBoost }
-            ]
-        });
+        //
+        setTimeout(() => {
+            render({
+                text: "🌅 Welcome",
+                subtext: "Start your day or boost your energy",
+                buttons: [
+                    { label: "▶ Start Day", action: next },
+                    { label: "⚡ Energy Boost", action: openEnergyBoost }
+                ]
+            });
+        }, 0);
 
-        // stepIndex stays 0 until Start Day
+        // 
+        stepIndex = 0;
     });
 });
+
 
     }
 })();
