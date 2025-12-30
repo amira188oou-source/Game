@@ -653,7 +653,7 @@ body.energy-page {
 body.energy-page #app {
     margin: 0 auto;
     height: auto !important;
-    max-width: 500px;
+    max-width: 300px;
 }
 
 /* remove fake vertical stretching */
@@ -665,6 +665,6 @@ body.energy-page .energy-center {
 body.energy-page #choices {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
