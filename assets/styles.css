@@ -621,32 +621,25 @@ select option {
     pointer-events: none !important;
 }
 /* ================================
-   Boost Energy page — HARD FIX
+   Boost Energy — compact buttons
    ================================ */
 
-body.energy-page {
+body.energy-page .buttons button {
+    padding: 6px 12px !important;   /* ⬅ small padding */
     min-height: unset !important;
     height: auto !important;
-    align-items: flex-start !important;
-    padding-top: 60px;
+    font-size: 14px;
+    border-radius: 10px;
 }
 
-body.energy-page #app {
-    height: auto !important;
-    min-height: unset !important;
-    align-self: flex-start;
+/* tighten button container */
+body.energy-page .buttons {
+    margin-top: 10px !important;
+    gap: 8px !important;
 }
 
-/* Remove extra vertical stretch */
+/* remove extra spacing below */
 body.energy-page #choices {
-    display: inline-flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
+    margin-bottom: 0 !important;
 }
 
-/* Kill invisible space below */
-body.energy-page #anim,
-body.energy-page .buttons:last-child {
-    display: none;
-}
