@@ -639,3 +639,17 @@ select option {
 .energy-choices button:active {
     transform: translateY(0);
 }
+/* ===============================
+   Center Boost Energy choices
+   =============================== */
+
+.energy-center {
+    flex: 1;                         /* take available vertical space */
+    display: flex;
+    align-items: center;             /* vertical center */
+    justify-content: center;         /* horizontal center */
+}
+#app {
+    display: flex;
+    flex-direction: column;
+}
