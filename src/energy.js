@@ -33,13 +33,19 @@ const animEl = document.getElementById("anim");
 const nextBtn = document.getElementById("next");
 
 /* Attach choice handlers */
-choicesEl.querySelectorAll("button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    startRoutine(btn.dataset.level);
+document.addEventListener("DOMContentLoaded", () => {
+  const choicesEl = document.getElementById("choices");
+  const nextBtn = document.getElementById("next");
+
+  choicesEl.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      startRoutine(btn.dataset.level);
+    });
   });
+
+  nextBtn.addEventListener("click", nextStep);
 });
 
-nextBtn.addEventListener("click", nextStep);
 function startRoutine(level) {
   console.log("Energy level selected:", level);
 
