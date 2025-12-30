@@ -640,38 +640,31 @@ select option {
     transform: translateY(0);
 }
 /* ==================================
-   Boost Energy – compact card
+   Boost Energy — FIX oversized card
    ================================== */
 
 body.energy-page {
-    align-items: flex-start;      /* ⬅ stop vertical stretch */
+    display: block !important;        /* ⬅ STOP flex centering */
+    min-height: unset !important;
     padding-top: 80px;
+    background: var(--bg);
 }
 
 body.energy-page #app {
-    max-width: 720px;
-    padding: 24px;
+    margin: 0 auto;
     height: auto !important;
+    max-width: 700px;
 }
 
-/* shrink content spacing */
-body.energy-page #text {
-    margin-bottom: 14px;
-}
-
+/* remove fake vertical stretching */
 body.energy-page .energy-center {
-    flex: unset !important;
+    display: block !important;
 }
 
-/* make choices block hug its content */
+/* make choices hug content */
 body.energy-page #choices {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    margin: 0 auto;
+    gap: 16px;
 }
 
-/* remove unused empty space */
-body.energy-page #anim {
-    display: none;
-}
