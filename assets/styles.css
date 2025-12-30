@@ -620,30 +620,3 @@ select option {
     display: none !important;
     pointer-events: none !important;
 }
-/* ================================
-   Boost Energy — shrink card height
-   ================================ */
-
-body.energy-page {
-    align-items: flex-start; /* prevent vertical centering stretch */
-}
-
-body.energy-page #app {
-    padding: 22px 22px 18px;  /* smaller padding */
-    max-width: 900px;
-    height: auto;            /* 🔑 allow natural height */
-    min-height: unset;       /* 🔑 REMOVE forced height */
-}
-
-/* tighten spacing */
-body.energy-page header {
-    margin-bottom: 12px;
-}
-
-body.energy-page #text {
-    margin: 12px 0;
-}
-
-body.energy-page .buttons {
-    margin-top: 8px;
-}
