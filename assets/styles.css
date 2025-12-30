@@ -602,21 +602,3 @@ select option {
 .energy-anim.active {
     display: flex;
 }
-/* ============================= */
-/* ⚡ Boost Energy page FIXES */
-/* ============================= */
-
-.energy-page #choices,
-.energy-page #choices button {
-    position: relative;
-    z-index: 10001;
-    pointer-events: auto;
-}
-
-/* Disable global overlays on energy page */
-.energy-page #timer,
-.energy-page .top-mealbar,
-.energy-page .top-notif {
-    display: none !important;
-    pointer-events: none !important;
-}
