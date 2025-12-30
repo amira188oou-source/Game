@@ -620,40 +620,33 @@ select option {
     display: none !important;
     pointer-events: none !important;
 }
-/* ============================= */
-/* Boost Energy page layout fix */
-/* ============================= */
+/* ============================
+   Boost Energy page FIX
+   ============================ */
 
-.energy-page body {
-    align-items: flex-start; /* stop vertical centering */
+.energy-page {
+    align-items: flex-start;   /* stop vertical centering */
+    padding-top: 60px;
 }
 
 .energy-page #app {
-    margin-top: 80px;
-    height: auto;
     min-height: unset;
+    height: auto;
+    padding-bottom: 32px;
 }
 
-/* shrink the choices area */
+/* shrink buttons container to content */
 .energy-page #choices {
     display: inline-flex;
     gap: 12px;
     justify-content: center;
-    width: auto;
+    flex-wrap: wrap;
 }
 
-/* center the choices block */
-.energy-page #choices {
-    margin-left: auto;
-    margin-right: auto;
-}
-.energy-page #app { outline: 2px solid red; }
-.energy-page header {
-    margin-bottom: 20px;
+/* prevent empty space below buttons */
+.energy-page #anim {
+    min-height: 0;
 }
 
-.energy-page #text {
-    margin-bottom: 16px;
-}
 
 
