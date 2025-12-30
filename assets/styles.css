@@ -620,12 +620,40 @@ select option {
     display: none !important;
     pointer-events: none !important;
 }
-/* Boost Energy buttons: shrink to content */
+/* ============================= */
+/* Boost Energy page layout fix */
+/* ============================= */
+
+.energy-page body {
+    align-items: flex-start; /* stop vertical centering */
+}
+
+.energy-page #app {
+    margin-top: 80px;
+    height: auto;
+    min-height: unset;
+}
+
+/* shrink the choices area */
 .energy-page #choices {
     display: inline-flex;
-    gap: 10px;
-    margin: 10px auto 0;
+    gap: 12px;
     justify-content: center;
     width: auto;
 }
+
+/* center the choices block */
+.energy-page #choices {
+    margin-left: auto;
+    margin-right: auto;
+}
+.energy-page #app { outline: 2px solid red; }
+.energy-page header {
+    margin-bottom: 20px;
+}
+
+.energy-page #text {
+    margin-bottom: 16px;
+}
+
 
