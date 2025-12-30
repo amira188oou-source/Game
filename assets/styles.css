@@ -620,33 +620,33 @@ select option {
     display: none !important;
     pointer-events: none !important;
 }
-/* ============================
-   Boost Energy page FIX
-   ============================ */
+/* ================================
+   Boost Energy page — HARD FIX
+   ================================ */
 
-.energy-page {
-    align-items: flex-start;   /* stop vertical centering */
+body.energy-page {
+    min-height: unset !important;
+    height: auto !important;
+    align-items: flex-start !important;
     padding-top: 60px;
 }
 
-.energy-page #app {
-    min-height: unset;
-    height: auto;
-    padding-bottom: 32px;
+body.energy-page #app {
+    height: auto !important;
+    min-height: unset !important;
+    align-self: flex-start;
 }
 
-/* shrink buttons container to content */
-.energy-page #choices {
+/* Remove extra vertical stretch */
+body.energy-page #choices {
     display: inline-flex;
     gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-/* prevent empty space below buttons */
-.energy-page #anim {
-    min-height: 0;
+/* Kill invisible space below */
+body.energy-page #anim,
+body.energy-page .buttons:last-child {
+    display: none;
 }
-
-
-
