@@ -620,3 +620,14 @@ select option {
     display: none !important;
     pointer-events: none !important;
 }
+/* Boost Energy buttons: shrink to content */
+.energy-page #choices {
+    display: inline-flex;
+    gap: 12px;
+    margin: 20px auto 0;
+    justify-content: center;
+    width: auto;
+}
+.energy-page #choices button {
+    min-width: 160px;
+}
