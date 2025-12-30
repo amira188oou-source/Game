@@ -602,3 +602,40 @@ select option {
 .energy-anim.active {
     display: flex;
 }
+/* ===============================
+   Boost Energy – BIG choices
+   =============================== */
+
+.energy-choices {
+    display: flex;
+    flex-direction: column;     /* one per line */
+    gap: 14px;
+    margin-top: 20px;
+}
+
+/* big, friendly buttons */
+.energy-choices button {
+    font-size: 18px;
+    padding: 18px 22px;
+    border-radius: 14px;
+    text-align: left;
+    background: linear-gradient(135deg, #4f83ff, #5fa8ff);
+    box-shadow: 0 6px 16px rgba(79, 131, 255, 0.35);
+    transition: all 0.25s ease;
+}
+
+/* emoji spacing */
+.energy-choices button::first-letter {
+    margin-right: 8px;
+}
+
+/* hover effect */
+.energy-choices button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(79, 131, 255, 0.5);
+}
+
+/* active click */
+.energy-choices button:active {
+    transform: translateY(0);
+}
