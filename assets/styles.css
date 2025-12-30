@@ -639,32 +639,29 @@ select option {
 .energy-choices button:active {
     transform: translateY(0);
 }
-/* ==================================
-   Boost Energy — FIX oversized card
-   ================================== */
+/* ===============================
+   Boost Energy – inner small box
+   =============================== */
 
-body.energy-page {
-    display: block !important;        /* ⬅ STOP flex centering */
-    min-height: unset !important;
-    padding-top: 90px;
-    background: var(--bg);
+.energy-box {
+    margin: 30px auto 0;
+    padding: 20px;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
-body.energy-page #app {
-    margin: 0 auto;
-    height: auto !important;
-    max-width: 1000px;
-}
-
-/* remove fake vertical stretching */
-body.energy-page .energy-center {
-    display: block !important;
-}
-
-/* make choices hug content */
-body.energy-page #choices {
+/* choices layout */
+.energy-choices {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 14px;
 }
 
+/* big buttons */
+.energy-choices button {
+    font-size: 16px;
+    padding: 14px;
+    border-radius: 14px;
+}
