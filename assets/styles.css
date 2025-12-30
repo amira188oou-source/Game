@@ -621,25 +621,29 @@ select option {
     pointer-events: none !important;
 }
 /* ================================
-   Boost Energy — compact buttons
+   Boost Energy — shrink card height
    ================================ */
 
-body.energy-page .buttons button {
-    padding: 6px 12px !important;   /* ⬅ small padding */
-    min-height: unset !important;
-    height: auto !important;
-    font-size: 14px;
-    border-radius: 10px;
+body.energy-page {
+    align-items: flex-start; /* prevent vertical centering stretch */
 }
 
-/* tighten button container */
+body.energy-page #app {
+    padding: 22px 22px 18px;  /* smaller padding */
+    max-width: 900px;
+    height: auto;            /* 🔑 allow natural height */
+    min-height: unset;       /* 🔑 REMOVE forced height */
+}
+
+/* tighten spacing */
+body.energy-page header {
+    margin-bottom: 12px;
+}
+
+body.energy-page #text {
+    margin: 12px 0;
+}
+
 body.energy-page .buttons {
-    margin-top: 10px !important;
-    gap: 8px !important;
+    margin-top: 8px;
 }
-
-/* remove extra spacing below */
-body.energy-page #choices {
-    margin-bottom: 0 !important;
-}
-
