@@ -646,14 +646,14 @@ select option {
 body.energy-page {
     display: block !important;        /* ⬅ STOP flex centering */
     min-height: unset !important;
-    padding-top: 50px;
+    padding-top: 90px;
     background: var(--bg);
 }
 
 body.energy-page #app {
     margin: 0 auto;
     height: auto !important;
-    max-width: 300px;
+    max-width: 1000px;
 }
 
 /* remove fake vertical stretching */
@@ -665,6 +665,6 @@ body.energy-page .energy-center {
 body.energy-page #choices {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 50px;
 }
 
