@@ -639,17 +639,39 @@ select option {
 .energy-choices button:active {
     transform: translateY(0);
 }
-/* ===============================
-   Center Boost Energy choices
-   =============================== */
+/* ==================================
+   Boost Energy – compact card
+   ================================== */
 
-.energy-center {
-    flex: 1;                         /* take available vertical space */
-    display: flex;
-    align-items: center;             /* vertical center */
-    justify-content: center;         /* horizontal center */
+body.energy-page {
+    align-items: flex-start;      /* ⬅ stop vertical stretch */
+    padding-top: 80px;
 }
-#app {
+
+body.energy-page #app {
+    max-width: 720px;
+    padding: 24px;
+    height: auto !important;
+}
+
+/* shrink content spacing */
+body.energy-page #text {
+    margin-bottom: 14px;
+}
+
+body.energy-page .energy-center {
+    flex: unset !important;
+}
+
+/* make choices block hug its content */
+body.energy-page #choices {
     display: flex;
     flex-direction: column;
+    gap: 14px;
+    margin: 0 auto;
+}
+
+/* remove unused empty space */
+body.energy-page #anim {
+    display: none;
 }
