@@ -665,3 +665,19 @@ select option {
     padding: 14px;
     border-radius: 14px;
 }
+/* ===============================
+   Fix BIG background behind choices
+   =============================== */
+
+.energy-choices {
+    display: inline-flex !important;   /* ⬅ stop grid stretch */
+    flex-direction: column;
+    gap: 14px;
+    width: auto !important;             /* ⬅ hug buttons */
+    margin: 0 auto;                     /* center horizontally */
+}
+
+/* make parent not stretch */
+.energy-choices > button {
+    width: 100%;
+}
