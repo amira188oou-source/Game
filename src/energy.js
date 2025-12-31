@@ -4,8 +4,8 @@
 
 const activityPools = {
   veryLow: [
-    { text: "😂 Watch a short comedy video", img: "assets/images/pic1.jpg" },
-    { text: "🎥 Watch a motivation video", img: "assets/images/motivation.jpg" }
+    { text: "😂 Watch a short comedy video", img: "../assets/images/pic1.jpg" },
+    { text: "🎥 Watch a motivation video", img: "../assets/images/motivation.jpg" }
   ],
   low: [
     { text: "🚿 Take a warm shower" },
