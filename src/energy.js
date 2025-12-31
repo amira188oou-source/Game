@@ -6,7 +6,7 @@ const activityPools = {
   veryLow: [
     { text: "🚿 Take a warm shower",img: "../assets/images/shower.jpg"},
     { text: "✍️ Write everything on your mind",img: "../assets/images/write.jpg"},
-    { text: "🎨 Draw anything you want",img: "../assets/images/draw.png"},
+    { text: "🎨 Draw anything you want",img: "../assets/images/draw.jpg"},
     { text: "🚶 Go out, slow walk and eat something you love",img: "../assets/images/out.jpg"},
     { text: "🕺 Dance to a song",img: "../assets/images/dance.jpg"},
     { text: "😂 Watch a short comedy video",img: "../assets/images/watch.jpg"},
@@ -26,7 +26,7 @@ const activityPools = {
   low: [
     { text: "🚿 Take a warm shower",img: "../assets/images/shower.jpg"},
     { text: "✍️ Write everything on your mind",img: "../assets/images/write.jpg"},
-    { text: "🎨 Draw anything you want",img: "../assets/images/draw.png"},
+    { text: "🎨 Draw anything you want",img: "../assets/images/draw.jpg"},
     { text: "🚶 Go out, slow walk and eat something you love",img: "../assets/images/out.jpg"},
     { text: "🕺 Dance to a song",img: "../assets/images/dance.jpg"},
     { text: "😂 Watch a short comedy video",img: "../assets/images/watch.jpg"},
@@ -45,7 +45,7 @@ const activityPools = {
 
   good: [
     { text: "✍️ Write one page of your feeling",img: "../assets/images/write.jpg"},
-    { text: "🎨 Draw anything you want",img: "../assets/images/draw.png"},
+    { text: "🎨 Draw anything you want",img: "../assets/images/draw.jpg"},
     { text: "🕺 Dance to a song",img: "../assets/images/dance.jpg"},
     { text: "😂 Watch a short comedy video",img: "../assets/images/watch.jpg"},
     { text: "📞 Talk to a friend you love",img: "../assets/images/talk.jpg"},
