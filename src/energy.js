@@ -139,7 +139,16 @@ nextBtn.onclick = () => {
   if (index < steps.length) {
     renderStep();
   } else {
-    card.innerHTML = "You did enough. Go back you are ready 💙";
+    card.innerHTML = `
+          <div style="font-size:20px; margin-bottom:16px;">
+          You did enough. Go back, you are ready 💙
+          </div>
+          <img 
+          src="assets/images/done.jpg" 
+          class="activity-img"
+          alt="Done"
+          >
+    `;
     nextBtn.style.display = "none";
     setTimeout(() => window.history.back(), 1200);
   }
