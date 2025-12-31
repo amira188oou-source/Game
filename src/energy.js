@@ -1,105 +1,95 @@
-let anim = null;
-let steps = [];
-let index = 0;
+/* ======================
+   ACTIVITY POOLS
+====================== */
 
-/* Lottie routines */
-const routines = {
+const activityPools = {
   veryLow: [
-    { text: "Stand up", anim: "https://assets3.lottiefiles.com/packages/lf20_kyu7xb1v.json" },
-    { text: "Drink water", anim: "https://assets10.lottiefiles.com/packages/lf20_q5pk6p1k.json" },
-    { text: "Deep breathing", anim: "https://assets2.lottiefiles.com/packages/lf20_bhw1ul4g.json" },
-    { text: "Slow walk", anim: "https://assets7.lottiefiles.com/packages/lf20_jcikwtux.json" }
+    { text: "😂 Watch a short comedy video", img: "assets/images/pic1.jpg" },
+    { text: "🎥 Watch a motivation video", img: "assets/images/motivation.jpg" }
   ],
   low: [
-    { text: "Stretch", anim: "https://assets1.lottiefiles.com/packages/lf20_touohxv0.json" },
-    { text: "Light movement", anim: "https://assets9.lottiefiles.com/packages/lf20_dvaw4k9n.json" },
-    { text: "Normal walk", anim: "https://assets6.lottiefiles.com/packages/lf20_kkflmtur.json" }
+    { text: "🚿 Take a warm shower" },
+    { text: "🕺 Dance to a song" },
+    { text: "📞 Talk to a friend you love" }
   ],
   good: [
-    { text: "Confident walk", anim: "https://assets7.lottiefiles.com/packages/lf20_jcikwtux.json" },
-    { text: "Focused", anim: "https://assets4.lottiefiles.com/packages/lf20_myejiggj.json" }
+    { text: "✍️ Write one page of your feeling" },
+    { text: "😂 Watch a short comedy video" }
   ],
   veryGood: [
-    { text: "Run!", anim: "https://assets6.lottiefiles.com/packages/lf20_kkflmtur.json" },
-    { text: "Hype jump", anim: "https://assets8.lottiefiles.com/packages/lf20_kkflmtur.json" },
-    { text: "GO WORK!", anim: "https://assets3.lottiefiles.com/packages/lf20_kkflmtur.json" }
+    { text: "🔥 Go work with full focus!" }
   ]
 };
 
-/* DOM refs */
-const choicesEl = document.getElementById("choices");
-const textEl = document.getElementById("text");
-const animEl = document.getElementById("anim");
+const activityCount = {
+  veryLow: 2,
+  low: 2,
+  good: 1,
+  veryGood: 1
+};
+
+/* ======================
+   STATE
+====================== */
+
+let steps = [];
+let index = 0;
+
+const card = document.getElementById("activityCard");
+const choices = document.getElementById("choices");
 const nextBtn = document.getElementById("next");
 
-/* Attach choice handlers */
-document.addEventListener("DOMContentLoaded", () => {
-  const choicesEl = document.getElementById("choices");
-  const nextBtn = document.getElementById("next");
+/* ======================
+   HELPERS
+====================== */
 
-  choicesEl.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      startRoutine(btn.dataset.level);
-    });
-  });
+function pickRandom(pool, count) {
+  return [...pool].sort(() => Math.random() - 0.5).slice(0, count);
+}
 
-  nextBtn.addEventListener("click", nextStep);
+function renderStep() {
+  const step = steps[index];
+
+  card.classList.remove("animate");
+  void card.offsetWidth;
+
+  card.innerHTML = `
+    <div>${step.text}</div>
+    ${step.img ? `<img src="${step.img}" class="activity-img">` : ""}
+  `;
+
+  card.classList.add("animate");
+  nextBtn.textContent = index === steps.length - 1 ? "Done" : "Next";
+}
+
+/* ======================
+   START
+====================== */
+
+document.querySelectorAll("#choices button").forEach(btn => {
+  btn.onclick = () => {
+    const level = btn.dataset.level;
+
+    choices.style.display = "none";
+    nextBtn.style.display = "block";
+
+    steps = pickRandom(activityPools[level], activityCount[level]);
+    index = 0;
+    renderStep();
+  };
 });
 
-function startRoutine(level) {
-  console.log("Energy level selected:", level);
+/* ======================
+   NEXT / FINISH
+====================== */
 
-  // hide choices
-  choicesEl.style.display = "none";
-
-  // show animation container
-  animEl.classList.add("active");
-
-  nextBtn.style.display = "block";
-  steps = routines[level] || [];
-  index = 0;
-  playStep();
-}
-
-
-function playStep() {
-  if (!steps[index]) return;
-
-  if (anim) anim.destroy();
-
-  textEl.textContent = steps[index].text;
-  document.getElementById("subtext").textContent = "";
-
-  anim = lottie.loadAnimation({
-    container: animEl,
-    renderer: "svg",
-    loop: true,
-    autoplay: true,
-    path: steps[index].anim
-  });
-}
-
-
-function nextStep() {
+nextBtn.onclick = () => {
   index++;
   if (index < steps.length) {
-    playStep();
+    renderStep();
   } else {
-    finish();
+    card.innerHTML = "You did enough. Go back when ready 💙";
+    nextBtn.style.display = "none";
+    setTimeout(() => window.history.back(), 1200);
   }
-}
-
-function finish() {
-  if (anim) anim.destroy();
-
-  textEl.textContent = "Done. Going back…";
-  nextBtn.style.display = "none";
-
-  console.log("Energy boost finished, going back");
-
-  // ✅ GUARANTEED to work
-  window.history.back();
-}
-
-
-
+};
