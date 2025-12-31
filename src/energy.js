@@ -42,6 +42,18 @@ const nextBtn = document.getElementById("next");
 /* ======================
    HELPERS
 ====================== */
+function renderStep() {
+  const step = steps[index];
+
+  card.innerHTML = `
+    <div>${step.text}</div>
+    <img 
+      src="${step.img}" 
+      class="activity-img"
+      onerror="this.style.border='3px solid red'; console.error('IMAGE FAILED:', this.src)"
+    >
+  `;
+}
 
 function pickRandom(pool, count) {
   return [...pool].sort(() => Math.random() - 0.5).slice(0, count);
@@ -88,7 +100,7 @@ nextBtn.onclick = () => {
   if (index < steps.length) {
     renderStep();
   } else {
-    card.innerHTML = "You did enough. Go back when ready 💙";
+    card.innerHTML = "You did enough. Go back you are ready 💙";
     nextBtn.style.display = "none";
     setTimeout(() => window.history.back(), 1200);
   }
