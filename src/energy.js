@@ -144,7 +144,7 @@ nextBtn.onclick = () => {
           You did enough. Go back, you are ready 💙
           </div>
           <img 
-          src="assets/images/done.jpg" 
+          src="../assets/images/done.jpg" 
           class="activity-img"
           alt="Done"
           >
