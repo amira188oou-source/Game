@@ -1,43 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Boost Energy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<title>⚡ Boost Energy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ correct path -->
-  <link href="../assets/styles.css" rel="stylesheet">
+<style>
+.activity-img {
+  width: 200px;
+  max-width: 100%;
+  border-radius: 16px;
+  margin: 16px auto;
+  display: block;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
 
-  <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+:root {
+  --bg: #0b1220;
+  --card: #1e2a44;
+  --text: #bfc8e6;
+  --primary: #4f83ff;
+  --secondary: #2f3f66;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  padding: 40px 20px;
+}
+
+#app {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.45);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+#progress {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+#text {
+  margin: 30px 0;
+}
+
+.activity-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 18px;
+  padding: 28px 22px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.6;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.activity-card.animate {
+  animation: slideFade 0.55s ease both;
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.energy-box {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.energy-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.energy-choices button {
+  font-size: 17px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--primary);
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+#next {
+  display: none;
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--secondary);
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style>
 </head>
 
-<body class="energy-page">
-  <div id="app">
-    <header>
-      <h1>⚡ Boost Energy</h1>
-      <div id="progress">Quick reset</div>
-    </header>
+<body>
+<div id="app">
+  <header>
+    <h1>⚡ Boost Energy</h1>
+    <div id="progress">Quick reset</div>
+  </header>
 
-    <div id="text">How is your energy right now?</div>
-    <div id="subtext" class="muted"></div>
-    <div class="energy-choices" id="choices">
-    <button data-level="veryLow">😴 Very Low</button>
-    <button data-level="low">😕 Low</button>
-    <button data-level="good">🙂 Good</button>
-    <button data-level="veryGood">🔥Good but need to refresh</button>
-  </div>
-</div>
-
-
-
-    <div id="anim" class="energy-anim"></div>
-
-    <div class="buttons">
-      <button id="next" style="display:none">Next</button>
+  <div id="text">
+    <div class="activity-card" id="activityCard">
+      How is your energy right now?
     </div>
   </div>
 
-  <!-- ✅ load once, last -->
-  <script src="energy.js"></script>
+  <div class="energy-box">
+    <div class="energy-choices" id="choices">
+      <button data-level="veryLow">😴 Very Low</button>
+      <button data-level="low">😕 Low</button>
+      <button data-level="good">🙂 Good</button>
+      <button data-level="veryGood">🔥 Very Good</button>
+    </div>
+  </div>
+
+  <button id="next">Next</button>
+</div>
+
+<!-- ✅ ONLY THIS SCRIPT -->
+<script src="js/boost-energy.js"></script>
 </body>
 </html>
